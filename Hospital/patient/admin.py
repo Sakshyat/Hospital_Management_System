@@ -19,7 +19,6 @@ class PatientInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (PatientInline,)
 
-
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
