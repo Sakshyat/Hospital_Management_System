@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Doctor
 from django.db.models import Q
-
+from account.decorators import user_only
 
 # Create your views here.
-
+@user_only
 def index(request):
     return render(request=request, template_name="doctor/index.html", context={})
 
