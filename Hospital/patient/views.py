@@ -10,8 +10,11 @@ from django.contrib.auth.decorators import login_required
 from account.decorators import user_only
 
 # Create your views here.
+
+#decorators
 @login_required(login_url='account:patient_login')
 @user_only
+#create appointment
 def create_appointment(request, pk=None):
     if request.method == "POST":
         form = AppForm(request.POST)
@@ -30,6 +33,7 @@ def create_appointment(request, pk=None):
 
 @login_required(login_url='account:patient_login')
 @user_only
+#listing all the created appointments
 def list_appointment(request):
     p = Patient.objects.get(user_id = request.user.id)
     appointment = Appointment.objects.filter(patient_id_id = p.id)
@@ -37,6 +41,7 @@ def list_appointment(request):
 
 @login_required(login_url='account:patient_login')
 @user_only
+#delete appointment
 def delete_appointment(request, pk=None):
     appointment = Appointment.objects.get(pk=pk)
     appointment.delete()
@@ -44,6 +49,7 @@ def delete_appointment(request, pk=None):
 
 @login_required(login_url='account:patient_login')  
 @user_only
+#update appointment
 def update_appointment(request, pk=None):
     if request.method == 'POST':
         form = UpdateForm(request.POST)
@@ -62,6 +68,7 @@ def update_appointment(request, pk=None):
     
 @login_required(login_url='account:patient_login') 
 @user_only
+#report upload
 def upload_report(request):
     if request.method == "POST":
         form = RepForm(request.POST, request.FILES)
@@ -79,6 +86,7 @@ def upload_report(request):
 
 @login_required(login_url='account:patient_login') 
 @user_only
+#listing all the uploaded reports
 def list_report(request):
     p = Patient.objects.get(user_id = request.user.id)
     report = Report.objects.filter(patient_id_id = p.id)

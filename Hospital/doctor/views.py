@@ -5,11 +5,13 @@ from django.db.models import Q
 from account.decorators import user_only
 
 # Create your views here.
+#decorator
 @user_only
+#index page
 def index(request):
     return render(request=request, template_name="doctor/index.html", context={})
 
-
+#listing all the doctors
 def list_doc(request):
     query = " "
     context = {}
@@ -21,7 +23,7 @@ def list_doc(request):
     context['doctors'] = doctor
     return render(request, "doctor/search_doctor.html", context)
 
-
+#search query for doctors
 def get_data_queryset(query=None):
     queryset = []
     queries = query.split(" ")

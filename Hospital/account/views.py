@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from .decorators import admin_only
 # Create your views here.
 
+#user registration
 def reg_patient(request):
     if request.method == 'POST':
         form = RegForm(data=request.POST)
@@ -37,7 +38,8 @@ def reg_patient(request):
         form = RegForm()
         formProfile = ProfileForm()
         return render(request, "account/register.html", {"form":form,"formProfile":formProfile})
-    #end
+
+#user login
 def patient_login(request):
     if request.method=='POST':
         un = request.POST['username']
@@ -52,21 +54,25 @@ def patient_login(request):
     else:
         return render(request, "account/login.html")
 
+#user logout
 def patient_logout(request):
     logout(request)
     return render(request,"doctor/index.html",{"patient_logout":patient_logout})
 
-            
+#user login display after logging in           
 def logged_in(request):
     return render(request,"account/logged_in.html",{"logged_in":logged_in})
 
+#decorators
 @login_required(login_url='account:patient_login')
 @admin_only
+#admin dashboard 
 def dashboard(request):
     return render(request, 'account/dashboard.html', {"doctor" : Doctor.objects.all()})
 
 @login_required(login_url='account:patient_login')
 @admin_only
+#add doctors from admin site
 def addDoc(request):
     form = DashForm(request.POST,request.FILES)
     if form.is_valid():
@@ -86,6 +92,7 @@ def addDoc(request):
 
 @login_required(login_url='account:patient_login')
 @admin_only
+#update doctors from admin site
 def updateDoc(request, pk=None):
     if request.method == 'POST':
         form = UpdateForm(request.POST,request.FILES)
@@ -104,6 +111,7 @@ def updateDoc(request, pk=None):
     
 @login_required(login_url='account:patient_login')
 @admin_only
+#delete doctors from admin site
 def deleteDoc(request, pk=None):
     d = Doctor.objects.get(pk=pk)
     d.delete()
