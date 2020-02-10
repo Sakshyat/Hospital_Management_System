@@ -22,7 +22,7 @@ urlpatterns = [
     path('', include('doctor.urls')),
     path('', include('account.urls')),
     path('', include('patient.urls')),
-
+    path('', include('restapi.urls')),
     path('admin/', admin.site.urls),
 ]
 if settings.DEBUG:
