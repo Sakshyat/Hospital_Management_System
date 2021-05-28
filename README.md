@@ -1,2 +1,2 @@
-# Slytherin_ADC4
- Hospital Management System
+Django Web Application -  Hospital Management System
+
